@@ -25,4 +25,7 @@ EXPOSE 3000 3001
 
 ADD start.sh /srv/www/
 # RUN cd app; git pull
+WORKDIR /srv/www/app
+RUN git pull
+WORKDIR /srv/www
 CMD ["/bin/bash", "-c",  "source /home/yeoman/.rvm/scripts/rvm ; ./start.sh"]

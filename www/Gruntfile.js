@@ -159,7 +159,7 @@ module.exports = function (grunt) {
     },
     jekyll: {
       options: {
-        config: '_config.yml,_config.build.yml',
+        config: 'app/_config.yml,app/_config.build.yml',
         src: '<%= yeoman.app %>'
       },
       dist: {
@@ -169,7 +169,7 @@ module.exports = function (grunt) {
       },
       server: {
         options: {
-          config: '_config.yml',
+          config: 'app/_config.yml',
           dest: '.jekyll'
         }
       },

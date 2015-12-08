@@ -69,6 +69,7 @@ rundevdocker:
 	chmod 777 $(TMP)
 	docker run --name=whcfoundation \
 	--cidfile="cid" \
+	-d \
 	-v $(TMP):/tmp \
 	-p 3000:3000 \
 	-p 3001:3001 \

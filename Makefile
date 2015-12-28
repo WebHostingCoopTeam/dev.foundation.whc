@@ -19,15 +19,10 @@ d: rm devx
 
 preview:
 	docker pull joshuacox/whcfoundation
-	$(eval TMP := $(shell mktemp -d --suffix=WHCFOUNDATION))
-	chmod 777 $(TMP)
 	docker run --name=whcfoundation \
 	--cidfile="cid" \
-	-v $(TMP):/tmp \
 	-p 3000:3000 \
 	-p 3001:3001 \
-	-v /var/run/docker.sock:/run/docker.sock \
-	-v $(shell which docker):/bin/docker \
 	-t joshuacox/whcfoundation
 	sleep 5
 	chromium  http://127.0.0.1:3001
@@ -37,6 +32,7 @@ pull:
 	docker pull joshuacox/whcfoundation
 
 devola:
+	$(eval TARGET := $(shell cat TARGET))
 	$(eval TMP := $(shell mktemp -d --suffix=WHCFOUNDATION))
 	chmod 777 $(TMP)
 	docker run --name=whcfoundation \
@@ -45,7 +41,6 @@ devola:
 	-p 3000:3000 \
 	-p 3001:3001 \
 	-v $(TMP):/tmp \
-	-v ~/.bash_profile:/home/yeoman/.bash_profile \
 	-v ~/.gitconfig:/home/yeoman/.gitconfig \
 	-v ~/.ssh:/home/yeoman/.ssh \
 	-v /var/run/docker.sock:/run/docker.sock \
@@ -53,10 +48,12 @@ devola:
 	-t joshuacox/whcfoundation
 
 devx:
+	$(eval TARGET := $(shell cat TARGET))
 	docker run --name=whcfoundation \
 	--cidfile="cid" \
 	-d \
 	-v /mnt/xyliss/git/jekyl.foundation.whc:/srv/www/app \
+	-v $(TARGET):/srv/www/app \
 	-p 3000:3000 \
 	-p 3001:3001 \
 	-t joshuacox/whcfoundation
@@ -74,6 +71,7 @@ serve:
 	chromium  http://127.0.0.1:3001
 
 rundevdocker:
+	$(eval TARGET := $(shell cat TARGET))
 	$(eval TMP := $(shell mktemp -d --suffix=WHCFOUNDATION))
 	chmod 777 $(TMP)
 	docker run --name=whcfoundation \
@@ -82,10 +80,7 @@ rundevdocker:
 	-v $(TMP):/tmp \
 	-p 3000:3000 \
 	-p 3001:3001 \
-	-v ~/.bash_profile:/home/yeoman/.bash_profile \
-	-v ~/.ssh:/home/yeoman/.ssh \
-	-v /var/run/docker.sock:/run/docker.sock \
-	-v $(shell which docker):/bin/docker \
+	-v $(TARGET):/srv/www/app \
 	-t joshuacox/whcfoundationrender
 
 jserve:

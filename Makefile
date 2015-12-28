@@ -15,7 +15,7 @@ dev: rm  cprundevin builddocker rundevdocker
 
 octo: cpoctoin octopush cprundevin
 
-d: rm devola
+d: rm devx
 
 preview:
 	docker pull joshuacox/whcfoundation
@@ -50,6 +50,15 @@ devola:
 	-v ~/.ssh:/home/yeoman/.ssh \
 	-v /var/run/docker.sock:/run/docker.sock \
 	-v $(shell which docker):/bin/docker \
+	-t joshuacox/whcfoundation
+
+devx:
+	docker run --name=whcfoundation \
+	--cidfile="cid" \
+	-d \
+	-v /mnt/xyliss/git/jekyl.foundation.whc:/srv/www/app \
+	-p 3000:3000 \
+	-p 3001:3001 \
 	-t joshuacox/whcfoundation
 
 show:
